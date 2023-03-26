@@ -95,9 +95,9 @@ var special = [
 var CreatePassword = function () {
   //Define Character Length
   var CharacterLength = window.prompt("Password Length:");
-  if (CharacterLength < 10 || CharacterLength > 64) {
+  if (CharacterLength < 8 || CharacterLength > 128) {
     window.alert(
-      "ERROR:\nPassword must contain between 10 and 64 characters.\nPlease try again."
+      "ERROR:\nPassword must contain between 8 and 128 characters.\nPlease try again."
     );
     return;
   }
