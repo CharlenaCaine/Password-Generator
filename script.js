@@ -1,131 +1,176 @@
-// Array of special characters to be included in password
-let specialCharacters = [
-  '@',
-  '%',
-  '+',
-  '\\',
-  '/',
+// Create variables
+var lowercase = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
+var uppercase = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "Q",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+var nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var special = [
+  " ",
+  "!",
+  "#",
+  "$",
+  "%",
+  "&",
   "'",
-  '!',
-  '#',
-  '$',
-  '^',
-  '?',
-  ':',
-  ',',
-  ')',
-  '(',
-  '}',
-  '{',
-  ']',
-  '[',
-  '~',
-  '-',
-  '_',
-  '.'
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ",",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
 ];
 
-// Array of numeric characters to be included in password
-let numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+//Create random password
+var CreatePassword = function () {
+  //Define Character Length
+  var CharacterLength = window.prompt("Password Length:");
+  if (CharacterLength < 10 || CharacterLength > 64) {
+    window.alert(
+      "ERROR:\nPassword must contain between 10 and 64 characters.\nPlease try again."
+    );
+    return;
+  }
 
-// Array of lowercase characters to be included in password
-let lowerCasedCharacters = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z'
-];
+  // Request character types
+  var LowerCase = window.confirm("Include lowercase characters?");
 
-// Array of uppercase characters to be included in password
-let upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
+  if (LowerCase === true) {
+    var Generate1 = lowercase;
+  } else {
+    Generate1 = [];
+  }
 
-// Function to prompt user for password options
-function getPasswordOptions() {
- 
-  let length = Number(prompt("Choose your password length between 10-64 characters"))
-  let charType = prompt("Choose what characters to include in your password. Type 'uppercase, lowercase, numbers, symbols' to include. ")
-  
-}
+  var UpperCase = window.confirm("Include uppercase characters?");
 
-// Function for getting a random element from an array
-function getRandom(arr) {
-  let retVal = "";
-  for (let i = 0; i < length; i++)
-    retVal += charSet.charAt(Math.floor(Math.random() * charSet.length));
-}
-return retVal;
+  if (UpperCase === true) {
+    var Generate2 = Generate1.concat(uppercase);
+  } else {
+    Generate2 = Generate1;
+  }
 
-// Function to generate password with user input
-function generatePassword(length, charType) {
-  let charGen = {
-    uppercase: 'upperCasedCharacters',
-    lowercase: 'lowerCasedCharacters',
-    numbers: 'numericCharacters',
-    symbols: 'specialCharacters',
-  };
+  var Numbers = window.confirm("Include Numbers?");
 
+  if (Numbers === true) {
+    var Generate3 = Generate2.concat(nums);
+  } else {
+    Generate3 = Generate2;
+  }
 
+  var Special = window.confirm("Include special characters?");
+
+  if (Special === true) {
+    var Generate4 = Generate3.concat(special);
+  } else {
+    Generate4 = Generate3;
+  }
+
+  if (
+    LowerCase === false &&
+    UpperCase === false &&
+    Numbers === false &&
+    Special === false
+  ) {
+    window.alert("Please select AT LEAST ONE type of characters");
+  }
+
+  // Define variable for the final array after character selection
+  var FinalArray = Generate4;
+
+  // Declare variable to contain randomized array
+  var GenPass = [];
+  // Random character selection
+  for (var i = 0; i < CharacterLength; i++) {
+    var RandomArray = FinalArray[Math.floor(Math.random() * FinalArray.length)];
+    GenPass.push(RandomArray);
+  }
+
+  // Turn array into string
+  var FinalString = GenPass.join("");
+
+  // Write password to the #password input
+  function GeneratePassword() {
+    var password = FinalString;
+    var passwordText = document.querySelector("#password");
+
+    passwordText.value = password;
+  }
+
+  GeneratePassword();
+};
 
 // Get references to the #generate element
-let generateBtn = document.querySelector('#generate');
-
-// Write password to the #password input
-function writePassword() {
-  let password = generatePassword();
-  let passwordText = document.querySelector('#password');
-
-  passwordText.value = password(length, charType);
-}
+var generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
-}
+generateBtn.addEventListener("click", CreatePassword);
